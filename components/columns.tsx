@@ -56,10 +56,6 @@ export const columns: ColumnDef<Invoice>[] = [
     header: "Número",
   },
   {
-    accessorKey: "buyer_name",
-    header: "Cliente",
-  },
-  {
     accessorKey: "expedition_date",
     header: ({ column }) => {
       return (
