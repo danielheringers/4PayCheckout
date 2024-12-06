@@ -32,7 +32,7 @@ export default function Dashboard() {
       <Header />
 
       <main className="flex-grow container mx-auto px-4 py-8">
-        <div className="bg-white rounded-lg p-6 shadow-lg flex flex-col h-[calc(100vh-230px)]">
+        <div className="rounded-lg p-6 shadow-lg flex flex-col h-[calc(100vh-230px)] bg-white/50 backdrop-filter backdrop-blur-lg border-b border-white/60">
           <h1 className="text-2xl font-bold mb-6">Área do Cliente | Faturas</h1>
           <InvoiceTable />
         </div>

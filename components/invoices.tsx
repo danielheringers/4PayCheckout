@@ -107,96 +107,104 @@ export function InvoiceTable() {
   });
 
   return (
-    <div>
-      <div className="mb-4 space-x-2">
-        <RadioGroup
-          defaultValue="all"
-          className="mb-4 flex space-x-4"
-          onValueChange={(value) => {
-            setFilter(value as InvoiceStatus);
-            setPage(1);
-          }}
-        >
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="all" id="all" />
-            <Label htmlFor="all">Todas as faturas</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="pending" id="pending" />
-            <Label htmlFor="pending">Pendentes</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="approved" id="approved" />
-            <Label htmlFor="approved">Aprovadas</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="expired" id="expired" />
-            <Label htmlFor="expired">Vencidas</Label>
-          </div>
-        </RadioGroup>
-      </div>
-      <div className="rounded-md border">
-        <div className="max-h-[600px] overflow-auto">
-          <Table>
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  ))}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {isLoading ? (
-                Array.from({ length: 10 }).map((_, index) => (
-                  <SkeletonRow key={index} columns={columns.length} />
-                ))
-              ) : error ? (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center text-red-500"
-                  >
-                    {error}
-                  </TableCell>
-                </TableRow>
-              ) : table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
+    <>
+      <div className="overflow-auto">
+        <div className="sticky mb-4 space-x-2">
+          <RadioGroup
+            defaultValue="all"
+            className="mb-4 flex space-x-4"
+            onValueChange={(value) => {
+              setFilter(value as InvoiceStatus);
+              setPage(1);
+            }}
+          >
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="all" id="all" />
+              <Label htmlFor="all">Todas as faturas</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="pending" id="pending" />
+              <Label htmlFor="pending">Pendentes</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="approved" id="approved" />
+              <Label htmlFor="approved">Pagas</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="expired" id="expired" />
+              <Label htmlFor="expired">Vencidas</Label>
+            </div>
+          </RadioGroup>
+        </div>
+        <div className="rounded-md border">
+          <div className="max-h-[600px]">
+            <Table>
+              <TableHeader>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </TableHead>
                     ))}
                   </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center"
-                  >
-                    Nenhum resultado encontrado.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                ))}
+              </TableHeader>
+              <TableBody>
+                {isLoading ? (
+                  Array.from({ length: 10 }).map((_, index) => (
+                    <SkeletonRow key={index} columns={columns.length} />
+                  ))
+                ) : error ? (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className="h-24 text-center text-red-500"
+                    >
+                      {error}
+                    </TableCell>
+                  </TableRow>
+                ) : table.getRowModel().rows?.length ? (
+                  table.getRowModel().rows.map((row) => (
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && "selected"}
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className="h-24 text-center"
+                    >
+                      Nenhum resultado encontrado.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </div>
+
+        <PaymentModal
+          open={isModalOpen}
+          onOpenChange={setIsModalOpen}
+          invoice={selectedInvoice}
+        />
       </div>
       <div className="mt-4 flex items-center justify-between">
         <Button
@@ -217,12 +225,6 @@ export function InvoiceTable() {
           Next
         </Button>
       </div>
-
-      <PaymentModal
-        open={isModalOpen}
-        onOpenChange={setIsModalOpen}
-        invoice={selectedInvoice}
-      />
-    </div>
+    </>
   );
 }

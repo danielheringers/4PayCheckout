@@ -50,10 +50,6 @@ export const columns: ColumnDef<Invoice>[] = [
     header: "Número",
   },
   {
-    accessorKey: "buyer_name",
-    header: "Cliente",
-  },
-  {
     accessorKey: "expedition_date",
     header: ({ column }) => {
       return (
@@ -106,7 +102,7 @@ export const columns: ColumnDef<Invoice>[] = [
             return {
               color: "bg-green-100 text-green-800",
               icon: CheckCircle,
-              label: "Aprovado",
+              label: "Pago",
             };
           case "expired":
             return {
