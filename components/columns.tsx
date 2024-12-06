@@ -35,7 +35,7 @@ const ColumnAction = ({ row, onPaymentClick }: ColumnActionProps) => {
       className="text-sky-900 border-sky-900 hover:bg-sky-900 hover:text-white"
       onClick={() => onPaymentClick(row.original)}
     >
-      Ver detalhes
+      Pagar
     </Button>
   );
 };
