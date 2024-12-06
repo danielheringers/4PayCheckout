@@ -108,34 +108,35 @@ export function InvoiceTable() {
 
   return (
     <>
+      <div className="mb-4 space-x-2">
+        <RadioGroup
+          defaultValue="all"
+          className="mb-4 flex space-x-4"
+          onValueChange={(value) => {
+            setFilter(value as InvoiceStatus);
+            setPage(1);
+          }}
+        >
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="all" id="all" />
+            <Label htmlFor="all">Todas as faturas</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="pending" id="pending" />
+            <Label htmlFor="pending">Pendentes</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="approved" id="approved" />
+            <Label htmlFor="approved">Pagas</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="expired" id="expired" />
+            <Label htmlFor="expired">Vencidas</Label>
+          </div>
+        </RadioGroup>
+      </div>
+
       <div className="overflow-auto">
-        <div className="sticky mb-4 space-x-2">
-          <RadioGroup
-            defaultValue="all"
-            className="mb-4 flex space-x-4"
-            onValueChange={(value) => {
-              setFilter(value as InvoiceStatus);
-              setPage(1);
-            }}
-          >
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="all" id="all" />
-              <Label htmlFor="all">Todas as faturas</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="pending" id="pending" />
-              <Label htmlFor="pending">Pendentes</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="approved" id="approved" />
-              <Label htmlFor="approved">Pagas</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="expired" id="expired" />
-              <Label htmlFor="expired">Vencidas</Label>
-            </div>
-          </RadioGroup>
-        </div>
         <div className="rounded-md border">
           <div className="max-h-[600px]">
             <Table>
