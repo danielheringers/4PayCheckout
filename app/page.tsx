@@ -1,101 +1,90 @@
+import Link from "next/link";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { FinancialDashboard } from "@/components/financial-dashboard";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-full overflow-hidden">
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          background:
+            "linear-gradient(45deg, #1E3C72 0%, #2A5298 25%, #6FB1FC 50%, #00BFFF 100%)",
+          filter: "blur(100px)",
+          opacity: 0.7,
+        }}
+      />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+      {/* Navigation */}
+      <header className="px-4 lg:px-6 h-20 flex items-center bg-white/10 backdrop-filter backdrop-blur-lg border-b border-white/20">
+        <div className="container mx-auto flex justify-between items-center">
+          <Link className="flex items-center justify-center" href="/">
             <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="/novalogotendabranco.png"
+              alt="Logo da empresa"
+              width={120}
+              height={40}
+              className="h-8 w-auto"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </Link>
+          <nav className="ml-auto flex gap-4 sm:gap-6">
+            <Button variant="secondary" asChild>
+              <Link href="/login">Área do Cliente →</Link>
+            </Button>
+          </nav>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </header>
+
+      {/* Hero Section */}
+      <section className="flex-grow flex items-center justify-center px-4 min-h-[calc(100vh-173px)]">
+        <div className="container px-4 md:px-6">
+          <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+            <div className="flex flex-col justify-center space-y-4">
+              <div className="space-y-2">
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-7xl/none bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-900">
+                  Seu apartamento cabe no seu bolso
+                </h1>
+                <p className="max-w-[600px] text-gray-300 md:text-xl dark:text-gray-400">
+                  tenha controle total do seu financiamento na palma da sua mão.
+                </p>
+              </div>
+              <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                <Button
+                  className="bg-slate-900 text-white hover:bg-slate-900/90"
+                  asChild
+                >
+                  <Link href="/login">Visualizar agora →</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="flex items-center justify-center">
+              {/* Device Mockup */}
+              <div className="relative w-full max-w-[280px] aspect-[9/19] transform rotate-6">
+                {/* Device Frame */}
+                <div className="absolute inset-0 bg-slate-900 rounded-[3rem] shadow-2xl">
+                  {/* Inner Shadow */}
+                  <div className="absolute inset-0 rounded-[3rem] shadow-inner" />
+
+                  {/* Buttons */}
+                  <div className="absolute right-[-2px] top-24 w-1 h-12 bg-slate-800 rounded-l-md" />
+                  <div className="absolute left-[-2px] top-20 w-1 h-16 bg-slate-800 rounded-r-md" />
+
+                  {/* Screen Container */}
+                  <div className="absolute inset-2 bg-white rounded-[2.75rem] overflow-hidden">
+                    {/* Screen Content */}
+                    <div className="h-full w-full">
+                      <FinancialDashboard />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <Footer />
     </div>
   );
 }
