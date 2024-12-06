@@ -28,6 +28,12 @@ interface ColumnActionProps {
 }
 
 const ColumnAction = ({ row, onPaymentClick }: ColumnActionProps) => {
+  const status = row.getValue("status") as string;
+
+  if (status === "approved") {
+    return null; // Don't render the button if the status is approved (paid)
+  }
+
   return (
     <Button
       variant="outline"
@@ -48,6 +54,10 @@ export const columns: ColumnDef<Invoice>[] = [
   {
     accessorKey: "billing_provider_number",
     header: "Número",
+  },
+  {
+    accessorKey: "buyer_name",
+    header: "Cliente",
   },
   {
     accessorKey: "expedition_date",
@@ -102,7 +112,7 @@ export const columns: ColumnDef<Invoice>[] = [
             return {
               color: "bg-green-100 text-green-800",
               icon: CheckCircle,
-              label: "Pago",
+              label: "Aprovado",
             };
           case "expired":
             return {
