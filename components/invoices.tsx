@@ -1,5 +1,6 @@
-"use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
 import { useState, useEffect } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -20,7 +21,7 @@ import {
   SortingState,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import { columns } from "./columns";
+import { columns, Invoice } from "./columns";
 import { SkeletonRow } from "./skeleton-row";
 import { PaymentModal } from "./payment-modal";
 
@@ -30,23 +31,6 @@ interface ApiResponse {
   data: Invoice[];
   total_pages: number;
 }
-
-type Invoice = {
-  id: string;
-  erp_id: string;
-  status: string;
-  total: number;
-  buyer_name: string;
-  due_date: string;
-  expedition_date: string;
-  billing_provider_number: string;
-  payment_info?: {
-    bar_code?: string;
-    digitable_line?: string;
-    qr_code_pix?: string;
-    qr_code_url?: string;
-  };
-};
 
 export function InvoiceTable() {
   const [filter, setFilter] = useState<InvoiceStatus>("all");
@@ -119,7 +103,7 @@ export function InvoiceTable() {
       onPaymentClick: (invoice: Invoice) => {
         fetchInvoiceDetails(invoice);
       },
-    },
+    } as any,
   });
 
   return (
@@ -242,4 +226,3 @@ export function InvoiceTable() {
     </div>
   );
 }
-// dasd

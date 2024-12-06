@@ -3,24 +3,28 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, ArrowUpDown, CheckCircle, Clock } from "lucide-react";
+import { ArrowUpDown, Clock, CheckCircle, AlertCircle } from "lucide-react";
 
 export type Invoice = {
-  id: string
-  erp_id: string
-  status: string
-  total: number
-  buyer_name: string
-  due_date: string
-  expedition_date: string
-  billing_provider_number: string
-  barcode?: string
-  pix_code?: string
-}
+  id: string;
+  erp_id: string;
+  status: string;
+  total: number;
+  buyer_name: string;
+  due_date: string;
+  expedition_date: string;
+  billing_provider_number: string;
+  payment_info?: {
+    bar_code: string;
+    digitable_line: string;
+    qr_code_pix: string;
+    qr_code_url: string;
+  };
+};
 
 interface ColumnActionProps {
-  row: any
-  onPaymentClick: (invoice: Invoice) => void
+  row: any;
+  onPaymentClick: (invoice: Invoice) => void;
 }
 
 const ColumnAction = ({ row, onPaymentClick }: ColumnActionProps) => {
@@ -31,13 +35,16 @@ const ColumnAction = ({ row, onPaymentClick }: ColumnActionProps) => {
       className="text-sky-900 border-sky-900 hover:bg-sky-900 hover:text-white"
       onClick={() => onPaymentClick(row.original)}
     >
-      Pagar
+      Ver detalhes
     </Button>
-  )
-}
-
+  );
+};
 
 export const columns: ColumnDef<Invoice>[] = [
+  {
+    accessorKey: "erp_id",
+    header: "ID",
+  },
   {
     accessorKey: "billing_provider_number",
     header: "Número",
@@ -91,7 +98,7 @@ export const columns: ColumnDef<Invoice>[] = [
         switch (status) {
           case "pending":
             return {
-              color: "bg-amber-100 text-amber-800",
+              color: "bg-yellow-100 text-yellow-800",
               icon: Clock,
               label: "Pendente",
             };
@@ -151,7 +158,12 @@ export const columns: ColumnDef<Invoice>[] = [
   {
     id: "actions",
     cell: ({ row, table }) => {
-      return <ColumnAction row={row} onPaymentClick={table.options.meta?.onPaymentClick} />
+      return (
+        <ColumnAction
+          row={row}
+          onPaymentClick={(table.options.meta as any).onPaymentClick}
+        />
+      );
     },
   },
 ];

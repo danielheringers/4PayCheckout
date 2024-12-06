@@ -15,15 +15,22 @@ import { Card, CardContent } from "@/components/ui/card";
 import { CreditCard, Barcode, QrCode } from "lucide-react";
 import Image from "next/image";
 
-interface Invoice {
+export type Invoice = {
+  id: string;
+  erp_id: string;
+  status: string;
   total: number;
-  payment_info: {
-    bar_code?: string;
-    qr_code_url?: string;
-    qr_code_pix?: string;
+  buyer_name: string;
+  due_date: string;
+  expedition_date: string;
+  billing_provider_number: string;
+  payment_info?: {
+    bar_code: string;
+    digitable_line: string;
+    qr_code_pix: string;
+    qr_code_url: string;
   };
-}
-
+};
 interface PaymentModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -153,7 +160,7 @@ export function PaymentModal({
                       className="w-full bg-slate-900 text-white hover:bg-slate-900/90"
                       onClick={() =>
                         navigator.clipboard.writeText(
-                          invoice.payment_info.qr_code_pix || ""
+                          invoice.payment_info?.qr_code_pix || ""
                         )
                       }
                     >
